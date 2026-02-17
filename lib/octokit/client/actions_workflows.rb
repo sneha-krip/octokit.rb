@@ -43,7 +43,7 @@ module Octokit
       def workflow_dispatch(repo, id, ref, options = {})
         merged_params = options.merge({ ref: ref })
         endpoint_path = "#{Repository.path repo}/actions/workflows/#{id}/dispatches"
-        
+
         wants_details = merged_params[:return_run_details]
         wants_details ? post(endpoint_path, merged_params) : boolean_from_response(:post, endpoint_path, merged_params)
       end

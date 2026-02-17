@@ -59,16 +59,16 @@ describe Octokit::Client::ActionsWorkflows do
       it 'gets run details from API response' do
         wf_file = 'simple_workflow.yml'
         api_response_body = { id: 123, status: 'queued' }.to_json
-        
+
         http_stub = stub_post("/repos/#{@test_repo}/actions/workflows/#{wf_file}/dispatches")
-          .to_return(
-            status: 200,
-            body: api_response_body,
-            headers: { 'Content-Type' => 'application/json' }
-          )
+                    .to_return(
+                      status: 200,
+                      body: api_response_body,
+                      headers: { 'Content-Type' => 'application/json' }
+                    )
 
         output = @client.workflow_dispatch(@test_repo, wf_file, 'main', return_run_details: true)
-        
+
         expect(output.class.name).to eq('Sawyer::Resource')
         expect(output.id).to be(123)
         expect(output.status).to match('queued')
