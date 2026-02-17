@@ -58,11 +58,13 @@ describe Octokit::Client::ActionsWorkflows do
     context 'with return_run_details option' do
       it 'gets run details from API response' do
         wf_file = 'simple_workflow.yml'
+        # rubocop:disable Style/NumericLiterals
         api_response_body = {
-          workflow_run_id: 22_103_568_458,
+          workflow_run_id: 22103568458,
           run_url: "https://api.github.com/repos/#{@test_repo}/actions/runs/22103568458",
           html_url: "https://github.com/#{@test_repo}/actions/runs/22103568458"
         }.to_json
+        # rubocop:enable Style/NumericLiterals
 
         http_stub = stub_post("/repos/#{@test_repo}/actions/workflows/#{wf_file}/dispatches")
                     .to_return(
@@ -74,7 +76,7 @@ describe Octokit::Client::ActionsWorkflows do
         output = @client.workflow_dispatch(@test_repo, wf_file, 'main', return_run_details: true)
 
         expect(output.class.name).to eq('Sawyer::Resource')
-        expect(output.workflow_run_id).to be(22_103_568_458)
+        expect(output.workflow_run_id).to be(22103568458) # rubocop:disable Style/NumericLiterals
         expect(output.run_url).to match('actions/runs/22103568458')
         expect(output.html_url).to match("github.com/#{@test_repo}/actions/runs/22103568458")
         assert_requested http_stub
