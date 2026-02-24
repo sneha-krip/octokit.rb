@@ -36,9 +36,16 @@ module Octokit
       # @param id [Integer, String] Id or file name of the workflow
       # @param ref [String] A SHA, branch name, or tag name
       # @param options [Hash] Optional parameters
-      # @option options [Boolean] :return_run_details Fetch run details
+      # @option options [Boolean] :return_run_details When true, returns a
+      #   Sawyer::Resource with run details (<tt>workflow_run_id</tt>,
+      #   <tt>run_url</tt>, and <tt>html_url</tt>) instead of a boolean.
+      #   Defaults to false.
       #
-      # @return [Boolean, Sawyer::Resource] Boolean success or run details
+      # @return [Boolean] True if the workflow was dispatched successfully,
+      #   when <tt>:return_run_details</tt> is false or not provided
+      # @return [Sawyer::Resource] Run details including <tt>workflow_run_id</tt>,
+      #   <tt>run_url</tt>, and <tt>html_url</tt>, when
+      #   <tt>:return_run_details</tt> is true
       # @see https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
       def workflow_dispatch(repo, id, ref, options = {})
         merged_params = options.merge({ ref: ref })
