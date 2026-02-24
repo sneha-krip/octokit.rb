@@ -56,6 +56,16 @@ describe Octokit::Client::ActionsWorkflows do
     end
 
     context 'with return_run_details option' do
+      it 'returns a boolean when set to false' do
+        wf_file = 'simple_workflow.yml'
+        http_stub = stub_post("/repos/#{@test_repo}/actions/workflows/#{wf_file}/dispatches")
+
+        output = @client.workflow_dispatch(@test_repo, wf_file, 'main', return_run_details: false)
+
+        expect(output).to be(true).or be(false)
+        assert_requested http_stub
+      end
+
       it 'gets run details from API response' do
         wf_file = 'simple_workflow.yml'
         # rubocop:disable Style/NumericLiterals

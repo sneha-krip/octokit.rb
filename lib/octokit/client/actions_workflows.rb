@@ -36,7 +36,7 @@ module Octokit
       # @param id [Integer, String] Id or file name of the workflow
       # @param ref [String] A SHA, branch name, or tag name
       # @param options [Hash] Optional parameters
-      # @option options [Boolean] :return_run_details Fetch run details (needs API 2022-11-28)
+      # @option options [Boolean] :return_run_details Fetch run details
       #
       # @return [Boolean, Sawyer::Resource] Boolean success or run details
       # @see https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
